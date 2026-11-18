@@ -289,6 +289,18 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
 .pay:last-child .chip { background: #0f8f4f; }
 .chip:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
+/* Ninong and Ninang */
+.sponsors { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.sp-wrap { position: relative; width: 100%; margin-top: 14px; padding: 18px 16px 6px; background: rgba(250, 252, 246, .82); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14); max-height: 340px; overflow: hidden; transition: max-height .7s cubic-bezier(.2, .7, .2, 1); }
+.sp-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(to bottom, rgba(250, 252, 246, 0), rgba(250, 252, 246, .98)); pointer-events: none; transition: opacity .3s ease; }
+.sp-wrap.open::after { opacity: 0; }
+.sp-list { margin: 0 auto; padding: 0; max-width: 400px; list-style: none; counter-reset: sp; text-align: left; }
+.sp-list li { counter-increment: sp; display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 6px; padding: 6px 0; font-size: 16px; line-height: 1.3; color: var(--ink); border-bottom: 1px solid rgba(110, 140, 100, .18); }
+.sp-list li::before { content: counter(sp) "."; color: var(--gold-soft); text-align: right; font-variant-numeric: tabular-nums; }
+.sp-list li:last-child { border-bottom: 0; }
+.sp-btn { margin-top: 14px; font: inherit; font-size: 15px; color: var(--gold); background: transparent; border: 1px solid var(--gold); border-radius: 999px; padding: 8px 22px; cursor: pointer; transition: background .25s ease, color .25s ease; }
+.sp-btn:hover { background: var(--gold); color: #f6faf2; }
+
 /* Subtle motion */
 .view > * { animation: rise .85s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 90ms); }
 .sparkle { animation: none !important; }
@@ -402,6 +414,47 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
       <li class="tl-row"><span class="tl-ico"></span><time class="tl-time">7:00 PM</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-text">First dance</span></li>
       <li class="tl-row"><span class="tl-ico"></span><time class="tl-time">9:00 PM</time><span class="tl-dot" aria-hidden="true"></span><span class="tl-text">Evening send-off</span></li>
       </ol>
+  </section>
+
+  <section class="sponsors" aria-label="Ninong and Ninang">
+    <h2 class="blk-h">Ninong and Ninang</h2>
+    <p class="blk-sub">With love and gratitude to our principal sponsors</p>
+    <div class="sp-wrap" id="sp-wrap">
+      <ol class="sp-list" id="sp-list">
+        <li>Mr. Mariano B. Ganal and Mrs. Asuncion Ganal</li>
+        <li>Mr. Michael Salapare and Mrs. Maribel Salapare</li>
+        <li>Mr. Rodel Callueng and Mrs. Delia Callueng</li>
+        <li>Mrs. Rosita Ganal</li>
+        <li>Mrs. Flordeliza Mateo</li>
+        <li>Mr. Dennis Gaoanos</li>
+        <li>City Prosecutor Gifford L. Tumaneng and Mrs. Marita C. Tumaneng</li>
+        <li>Mr. Jonathan M. Manuel and Mrs. Maria Victoria O. Manuel</li>
+        <li>Mr. Amor Galat and Mrs. Marilyn Galat</li>
+        <li>Mr. Elmer R. Lagmay and Mrs. Rosario T. Lagmay</li>
+        <li>Mr. Frenie Trinidad and Mrs. Madeline A. Trinidad</li>
+        <li>Mr. Robert L. Alibuyog and Mrs. Linda P. Alibuyog</li>
+        <li>Mr. Francisco B. Tolentino and Mrs. Venus G. Tolentino</li>
+        <li>Mrs. Norma Pablo</li>
+        <li>Mr. Jhon Paguirigan and Mrs. Josie Paguirigan</li>
+        <li>Judge Myra Sheila M. Nalupta</li>
+        <li>Assistant Provincial Prosecutor Virgie Ines Lumontad</li>
+        <li>Atty. Juan Conrado A. Respicio</li>
+        <li>Atty. Edito Alberto G. Balintona and Mrs. Imelda Balintona</li>
+        <li>Mr. Johan C. Orcino and Mrs. Edna L. Orcino</li>
+        <li>Mr. Romeo V. Nicolas and Mrs. Anita Nicolas</li>
+        <li>Mrs. Cecilia L. Rivac</li>
+        <li>Mrs. Justina Rosqueta</li>
+        <li>Mr. Arthur Sangalang and Mrs. Evelyn Sangalang</li>
+        <li>Mr. Michael Maust and Mrs. Violeta Maust</li>
+        <li>Mr. Kevin Patrick Finn and Mrs. Amparo Finn</li>
+        <li>Mr. Felipe Miguel, Jr. and Mrs. Avelina B. Miguel</li>
+        <li>Mr. Nestor Marcos and Mrs. Thelma Marcos</li>
+        <li>Mr. James B. Juan and Mrs. Glenda P. Juan</li>
+        <li>Mr. Sadiri Baluran and Mrs. Marie Baluran</li>
+        <li>Mr. Maximo Morales and Mrs. Concepcion A. Morales</li>
+        </ol>
+    </div>
+    <button class="sp-btn" type="button" id="sp-btn" aria-expanded="false" aria-controls="sp-list">Show all 31</button>
   </section>
 
   <section class="dark">
@@ -707,6 +760,17 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   }
   Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) { t.addEventListener("click", function () { showVenue(+t.getAttribute("data-v")); }); });
   showVenue(0);
+
+  /* Ninong and Ninang list */
+  var spWrap = $("sp-wrap"), spBtn = $("sp-btn"), spTotal = $("sp-list").children.length;
+  spBtn.addEventListener("click", function () {
+    var open = !spWrap.classList.contains("open");
+    spWrap.classList.toggle("open", open);
+    spWrap.style.maxHeight = open ? $("sp-list").scrollHeight + 40 + "px" : "";
+    spBtn.setAttribute("aria-expanded", String(open));
+    spBtn.textContent = open ? "Show less" : "Show all " + spTotal;
+    if (!open) spWrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  });
 
   /* Gift box popup */
   var modal = $("gift-modal"), giftBtn = $("gift-open");
