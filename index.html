@@ -396,14 +396,14 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
 
   <h2 class="sec-h">Ceremony</h2>
   <div class="place">
-    <span>Church of Christ</span><span>Local of Eastwood</span>
-    <small>11905 82 ST NW<br>EDMONTON, AB, T5B 2W4</small>
+    <span>Our Lady of Lourdes</span><span>Parish Church</span>
+    <small>Mangato, Laoag City<br>Ilocos Norte</small>
   </div>
 
   <h2 class="sec-h">Reception to follow at</h2>
   <div class="place">
-    <span>5:00 PM</span><span>The Garden Venue at</span><span>Good Land Farms</span>
-    <small>52314 AB-779, Parkland County,<br>AB T7Z 1R1, Canada</small>
+    <span>5:00 PM</span><span>Paoay Lake</span><span>JLP Resort</span>
+    <small>Barangay 15 Suba, Paoay<br>Ilocos Norte</small>
   </div>
 
   <section class="cf" aria-label="Photo gallery" aria-roledescription="carousel">
@@ -677,7 +677,7 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   var P = function (n) { return "img/photo-" + n + ".webp"; };
   var IMAGES = { hero: P("beach"), cta: P("hands"), countdown: P("kiss"), ovals: [P("garden"), P("kitchen"), P("ring"), P("sunset"), P("coffee"), P("kiss")] };
   var FOCUS = { "img/photo-kiss.webp": "42% 40%", "img/photo-kitchen.webp": "64% 50%", "img/photo-coffee.webp": "22% 40%", "img/photo-beach.webp": "50% 40%" };
-  var WEDDING = new Date("2027-01-29T14:00:00-07:00"); /* Edmonton time */
+  var WEDDING = new Date("2027-01-29T14:00:00+08:00"); /* Philippine time */
     var GOOGLE_FORM_URL = ""; /* optional: an embedded Google Form replaces the styled form when set */
   /* Paste your Apps Script web app URL here (ends in /exec). Replies are saved to your Google Sheet. */
   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrSBWYwlRVf6P5HYjIJcKYYLCp76EKzMPtvIttcuMrgnqV6mHJo8RUkEWOz6aJlIU9/exec";
@@ -780,13 +780,13 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   }
   $("cal-days").innerHTML = cells;
   $("cal-add").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent("Anthony & Reina's Wedding") +
-    "&dates=20270129T140000/20270129T180000&ctz=America%2FEdmonton&location=" + encodeURIComponent("Church of Christ Local of Eastwood, 11905 82 ST NW, Edmonton, AB T5B 2W4");
+    "&dates=20270129T140000/20270129T180000&ctz=Asia%2FManila&location=" + encodeURIComponent("Our Lady of Lourdes Parish Church, Mangato, Laoag City, Ilocos Norte");
 
   /* Set true on your live site (Webflow) to show the real Google Map instead of the preview drawing. */
   var USE_LIVE_MAP = true;
   var VENUES = [
-    { tab: "Wedding Ceremony Venue", name: "Church of Christ Local of Eastwood", addr: "11905 82 ST NW, Edmonton, AB T5B 2W4" },
-    { tab: "Wedding Reception Venue", name: "The Garden Venue at Good Land Farms", addr: "52314 AB-779, Parkland County, AB T7Z 1R1, Canada" }
+    { tab: "Wedding Ceremony Venue", name: "Our Lady of Lourdes Parish Church", addr: "Mangato, Laoag City, Ilocos Norte" },
+    { tab: "Wedding Reception Venue", name: "Paoay Lake JLP Resort", addr: "Barangay 15 Suba, Paoay, Ilocos Norte" }
   ];
   function showVenue(i) {
     var v = VENUES[i], q = encodeURIComponent(v.name + ", " + v.addr);
