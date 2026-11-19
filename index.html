@@ -289,21 +289,29 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
 .pay:last-child .chip { background: #0f8f4f; }
 .chip:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
-/* Ninong and Ninang */
-.sponsors { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.sp-wrap { position: relative; width: 100%; margin-top: 14px; padding: 18px 16px 6px; background: rgba(250, 252, 246, .82); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14); max-height: 340px; overflow: hidden; transition: max-height .7s cubic-bezier(.2, .7, .2, 1); }
-.sp-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(to bottom, rgba(250, 252, 246, 0), rgba(250, 252, 246, .98)); pointer-events: none; transition: opacity .3s ease; }
-.sp-wrap.open::after { opacity: 0; }
+/* Tap-to-open cards (Ninong and Ninang, Entourage) */
+.acc { width: 100%; display: flex; flex-direction: column; align-items: stretch; text-align: center; }
+.acc-btn { width: 100%; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 20px 16px 16px;
+  background: rgba(250, 252, 246, .82); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.acc-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(46, 64, 40, .2); border-color: var(--gold-soft); }
+.acc-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.acc-title { font-family: var(--display); font-weight: 500; font-size: 22px; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+.acc-sub { font-size: 16px; color: var(--gold-soft); }
+.acc-cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 14px; letter-spacing: .06em; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: 5px 14px; }
+.acc-chev { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .4s ease; }
+.acc.open .acc-chev { transform: rotate(180deg); }
+.acc-panel { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .6s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .6s; }
+.acc.open .acc-panel { grid-template-rows: 1fr; visibility: visible; transition-delay: 0s; }
+.acc-inner { min-height: 0; overflow: hidden; }
+.sp-wrap { width: 100%; margin-top: 12px; padding: 18px 16px 8px; background: rgba(250, 252, 246, .82); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14); }
 .sp-list { margin: 0 auto; padding: 0; max-width: 400px; list-style: none; counter-reset: sp; text-align: left; }
 .sp-list li { counter-increment: sp; display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 6px; padding: 6px 0; font-size: 16px; line-height: 1.3; color: var(--ink); border-bottom: 1px solid rgba(110, 140, 100, .18); }
 .sp-list li::before { content: counter(sp) "."; color: var(--gold-soft); text-align: right; font-variant-numeric: tabular-nums; }
 .sp-list li:last-child { border-bottom: 0; }
-.sp-btn { margin-top: 14px; font: inherit; font-size: 15px; color: var(--gold); background: transparent; border: 1px solid var(--gold); border-radius: 999px; padding: 8px 22px; cursor: pointer; transition: background .25s ease, color .25s ease; }
-.sp-btn:hover { background: var(--gold); color: #f6faf2; }
 
 /* Entourage */
-.entourage { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
-.ent-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 14px; padding: 22px 16px; background: rgba(250, 252, 246, .82); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14); }
+.ent-grid { width: 100%; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 14px; padding: 22px 16px; background: rgba(250, 252, 246, .82); border-radius: 6px; box-shadow: 0 10px 24px rgba(46, 64, 40, .14); }
 .ent-group { min-width: 0; }
 .ent-group.wide { grid-column: 1 / -1; }
 .ent-group h3 { font-family: var(--display); font-weight: 500; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
@@ -429,10 +437,11 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
       </ol>
   </section>
 
-  <section class="sponsors" aria-label="Ninong and Ninang">
-    <h2 class="blk-h">Ninong and Ninang</h2>
-    <p class="blk-sub">With love and gratitude to our principal sponsors</p>
-    <div class="sp-wrap" id="sp-wrap">
+  <section class="sponsors acc" aria-label="Ninong and Ninang">
+    <button class="acc-btn" type="button" id="sp-acc" aria-expanded="false" aria-controls="sp-panel"><span class="acc-title">Ninong and Ninang</span><span class="acc-sub">With love and gratitude to our principal sponsors</span><span class="acc-cta"><span class="acc-cta-text">Tap to view</span><svg class="acc-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>
+    <div class="acc-panel" id="sp-panel" role="region" aria-labelledby="sp-acc">
+      <div class="acc-inner">
+        <div class="sp-wrap">
       <ol class="sp-list" id="sp-list">
         <li>Mr. Mariano B. Ganal and Mrs. Asuncion Ganal</li>
         <li>Mr. Michael Salapare and Mrs. Maribel Salapare</li>
@@ -466,13 +475,16 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
         <li>Mr. Sadiri Baluran and Mrs. Marie Baluran</li>
         <li>Mr. Maximo Morales and Mrs. Concepcion A. Morales</li>
         </ol>
+        </div>
+      </div>
     </div>
-    <button class="sp-btn" type="button" id="sp-btn" aria-expanded="false" aria-controls="sp-list">Show all 31</button>
   </section>
 
-  <section class="entourage" aria-label="Entourage">
-    <h2 class="blk-h">Our Entourage</h2>
-    <div class="ent-grid">
+  <section class="entourage acc" aria-label="Entourage">
+    <button class="acc-btn" type="button" id="ent-acc" aria-expanded="false" aria-controls="ent-panel"><span class="acc-title">Our Entourage</span><span class="acc-sub">The people standing with us on our special day</span><span class="acc-cta"><span class="acc-cta-text">Tap to view</span><svg class="acc-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>
+    <div class="acc-panel" id="ent-panel" role="region" aria-labelledby="ent-acc">
+      <div class="acc-inner">
+      <div class="ent-grid">
       <div class="ent-group"><h3>Parents of the Groom</h3><ul class="ent-names"><li>Mr. Alvaro B. Ganal (+)</li><li>Mrs. Alicia M. Ganal</li></ul></div>
       <div class="ent-group"><h3>Parents of the Bride</h3><ul class="ent-names"><li>Mr. Alfredo B. Alibuyog</li><li>Mrs. Remedios T. Alibuyog</li></ul></div>
       <div class="ent-group wide"><h3>Secondary Sponsors</h3><ul class="ent-roles"><li><span>Rose Jane Juan</span><em>Matron of Honor</em></li><li><span>Adonis M. Ganal</span><em>Best Man</em></li><li><span>Jackie Cristobal</span><em>Candle</em></li><li><span>Gener Ganal</span><em>Candle</em></li><li><span>Rica Mae Daenos</span><em>Veil</em></li><li><span>Ervin Ralph Lagmay</span><em>Veil</em></li><li><span>Maricel C. Juian</span><em>Cord</em></li><li><span>Raymark Agudong</span><em>Cord</em></li></ul></div>
@@ -482,6 +494,8 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
       <div class="ent-group"><h3>Bible Bearer</h3><ul class="ent-names"><li>King Russel G. Cabading</li></ul></div>
       <div class="ent-group"><h3>Ring Bearer</h3><ul class="ent-names"><li>Rey Axel T. Alibuyog</li></ul></div>
       <div class="ent-group wide"><h3>Banner Bearer</h3><ul class="ent-names"><li>Reign Anjelo A. Ganal</li></ul></div>
+    </div>
+      </div>
     </div>
   </section>
 
@@ -789,15 +803,16 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (t) { t.addEventListener("click", function () { showVenue(+t.getAttribute("data-v")); }); });
   showVenue(0);
 
-  /* Ninong and Ninang list */
-  var spWrap = $("sp-wrap"), spBtn = $("sp-btn"), spTotal = $("sp-list").children.length;
-  spBtn.addEventListener("click", function () {
-    var open = !spWrap.classList.contains("open");
-    spWrap.classList.toggle("open", open);
-    spWrap.style.maxHeight = open ? $("sp-list").scrollHeight + 40 + "px" : "";
-    spBtn.setAttribute("aria-expanded", String(open));
-    spBtn.textContent = open ? "Show less" : "Show all " + spTotal;
-    if (!open) spWrap.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  /* Tap-to-open cards */
+  Array.prototype.forEach.call(document.querySelectorAll(".acc-btn"), function (btn) {
+    var card = btn.closest(".acc");
+    btn.addEventListener("click", function () {
+      var open = !card.classList.contains("open");
+      card.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.querySelector(".acc-cta-text").textContent = open ? "Tap to hide" : "Tap to view";
+      if (!open) btn.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
   });
 
   /* Gift box popup */
