@@ -104,8 +104,10 @@ img, .ph { max-width: 100%; }
 /* Coverflow slider */
 .cf { position: relative; width: 100%; --sw: min(318px, 80vw); --sh: calc(var(--sw) * 1.12); }
 .cf-stage { position: relative; height: calc(var(--sh) + 24px); perspective: 1100px; overflow: hidden; touch-action: pan-y; }
-.cf-slide { position: absolute; --r: 1.5; left: 50%; top: 50%; width: min(var(--sw), calc(var(--sh) * var(--r))); aspect-ratio: var(--r); border-radius: 10px; overflow: hidden; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
+.cf-slide { position: absolute; left: 50%; top: 50%; width: var(--sw); height: var(--sh); border-radius: 10px; overflow: hidden; background: #dfe9d6; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
   transition: transform .75s cubic-bezier(.2, .7, .2, 1), opacity .5s ease; will-change: transform; }
+.cf-slide::before { content: ""; position: absolute; inset: -16px; background: var(--bg) center / cover no-repeat; filter: blur(16px) saturate(1.1); transform: scale(1.1); }
+.cf-slide img { object-fit: contain; z-index: 1; }
 .cf-btn { position: absolute; top: 50%; margin-top: -19px; z-index: 20; width: 38px; height: 38px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; display: grid; place-items: center;
   background: rgba(68, 78, 64, .72); color: #fff; transition: background .25s ease, transform .25s ease; }
 .cf-btn:hover { background: rgba(68, 78, 64, .92); transform: scale(1.08); }
@@ -723,7 +725,7 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   function go(i) { cur = (i + n) % n; render(); }
   IMAGES.ovals.forEach(function (src, i) {
     var d = document.createElement("div"); d.className = "ph cf-slide"; d.setAttribute("role", "img"); d.setAttribute("aria-label", "Photo " + (i + 1) + " of " + n);
-    fill(d, src); var pi = new Image(); pi.onload = function () { d.style.setProperty("--r", (pi.naturalWidth / pi.naturalHeight).toFixed(4)); }; pi.src = src;
+    fill(d, src); d.style.setProperty("--bg", "url(\"" + src + "\")");
     d.addEventListener("click", function () { if (i !== cur) go(i); });
     stage.appendChild(d); slides.push(d);
     var b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Show photo " + (i + 1));
