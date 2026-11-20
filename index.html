@@ -102,16 +102,16 @@ img, .ph { max-width: 100%; }
 .place small { font-size: 14px; letter-spacing: .04em; margin-top: 8px; opacity: .9; }
 
 /* Coverflow slider */
-.cf { position: relative; width: 100%; --sw: min(240px, 62vw); }
-.cf-stage { position: relative; height: calc(var(--sw) * 1.25 + 24px); perspective: 1100px; overflow: hidden; touch-action: pan-y; }
-.cf-slide { position: absolute; left: calc(50% - var(--sw) / 2); top: 12px; width: var(--sw); height: calc(var(--sw) * 1.25); border-radius: 10px; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
+.cf { position: relative; width: 100%; --sw: min(318px, 80vw); --sh: calc(var(--sw) * .72); }
+.cf-stage { position: relative; height: calc(var(--sh) + 24px); perspective: 1100px; overflow: hidden; touch-action: pan-y; }
+.cf-slide { position: absolute; left: calc(50% - var(--sw) / 2); top: 12px; width: var(--sw); height: var(--sh); border-radius: 10px; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
   transition: transform .75s cubic-bezier(.2, .7, .2, 1), opacity .5s ease; will-change: transform; }
 .cf-btn { position: absolute; top: 50%; margin-top: -19px; z-index: 20; width: 38px; height: 38px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; display: grid; place-items: center;
   background: rgba(68, 78, 64, .72); color: #fff; transition: background .25s ease, transform .25s ease; }
 .cf-btn:hover { background: rgba(68, 78, 64, .92); transform: scale(1.08); }
 .cf-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.cf-prev { left: calc(50% - var(--sw) / 2 - 46px); }
-.cf-next { right: calc(50% - var(--sw) / 2 - 46px); }
+.cf-prev { left: 6px; }
+.cf-next { right: 6px; }
 .dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
 .dots button { width: 8px; height: 8px; border-radius: 8px; border: 0; padding: 0; cursor: pointer; background: #a4bf99; opacity: .7; transition: width .35s ease, background .35s ease, opacity .35s ease; }
 .dots button[aria-current="true"] { width: 26px; background: var(--gold); opacity: 1; }
@@ -712,7 +712,7 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
     slides.forEach(function (el, i) {
       var d = i - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
       var a = Math.abs(d), vis = a <= 2;
-      el.style.transform = "translateX(" + (d * 58) + "%) translateZ(" + (-a * 70) + "px) rotateY(" + (-d * 38) + "deg) scale(" + (1 - a * .07) + ")";
+      el.style.transform = "translateX(" + (d * 62) + "%) translateZ(" + (-a * 70) + "px) rotateY(" + (-d * 38) + "deg) scale(" + (1 - a * .07) + ")";
       el.style.opacity = vis ? (a === 0 ? 1 : a === 1 ? .85 : .45) : 0;
       el.style.zIndex = 10 - a;
       el.style.pointerEvents = vis ? "auto" : "none";
