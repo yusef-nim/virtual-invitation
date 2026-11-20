@@ -102,9 +102,9 @@ img, .ph { max-width: 100%; }
 .place small { font-size: 14px; letter-spacing: .04em; margin-top: 8px; opacity: .9; }
 
 /* Coverflow slider */
-.cf { position: relative; width: 100%; --sw: min(318px, 80vw); --sh: calc(var(--sw) * .72); }
+.cf { position: relative; width: 100%; --sw: min(318px, 80vw); --sh: calc(var(--sw) * 1.12); }
 .cf-stage { position: relative; height: calc(var(--sh) + 24px); perspective: 1100px; overflow: hidden; touch-action: pan-y; }
-.cf-slide { position: absolute; left: calc(50% - var(--sw) / 2); top: 12px; width: var(--sw); height: var(--sh); border-radius: 10px; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
+.cf-slide { position: absolute; --r: 1.5; left: 50%; top: 50%; width: min(var(--sw), calc(var(--sh) * var(--r))); aspect-ratio: var(--r); border-radius: 10px; overflow: hidden; box-shadow: 0 10px 24px rgba(68, 90, 58, .3); cursor: pointer;
   transition: transform .75s cubic-bezier(.2, .7, .2, 1), opacity .5s ease; will-change: transform; }
 .cf-btn { position: absolute; top: 50%; margin-top: -19px; z-index: 20; width: 38px; height: 38px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; display: grid; place-items: center;
   background: rgba(68, 78, 64, .72); color: #fff; transition: background .25s ease, transform .25s ease; }
@@ -712,7 +712,7 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
     slides.forEach(function (el, i) {
       var d = i - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
       var a = Math.abs(d), vis = a <= 2;
-      el.style.transform = "translateX(" + (d * 62) + "%) translateZ(" + (-a * 70) + "px) rotateY(" + (-d * 38) + "deg) scale(" + (1 - a * .07) + ")";
+      el.style.transform = "translate(-50%,-50%) translateX(" + (d * 62) + "%) translateZ(" + (-a * 70) + "px) rotateY(" + (-d * 38) + "deg) scale(" + (1 - a * .07) + ")";
       el.style.opacity = vis ? (a === 0 ? 1 : a === 1 ? .85 : .45) : 0;
       el.style.zIndex = 10 - a;
       el.style.pointerEvents = vis ? "auto" : "none";
@@ -723,7 +723,8 @@ fieldset legend { grid-column: 1 / -1; margin-bottom: 4px; padding: 0; }
   function go(i) { cur = (i + n) % n; render(); }
   IMAGES.ovals.forEach(function (src, i) {
     var d = document.createElement("div"); d.className = "ph cf-slide"; d.setAttribute("role", "img"); d.setAttribute("aria-label", "Photo " + (i + 1) + " of " + n);
-    fill(d, src); d.addEventListener("click", function () { if (i !== cur) go(i); });
+    fill(d, src); var pi = new Image(); pi.onload = function () { d.style.setProperty("--r", (pi.naturalWidth / pi.naturalHeight).toFixed(4)); }; pi.src = src;
+    d.addEventListener("click", function () { if (i !== cur) go(i); });
     stage.appendChild(d); slides.push(d);
     var b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Show photo " + (i + 1));
     b.addEventListener("click", function () { go(i); }); dots.appendChild(b);
